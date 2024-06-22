@@ -22,8 +22,6 @@ jobs:
   # Build Document Job
   build:
     runs-on: ubuntu-latest
-    outputs:
-     artifact_id: ${{ steps.step_upload_artifact.outputs.artifact-id }}
     defaults:
       run:
         working-directory: ./docs
@@ -50,7 +48,6 @@ jobs:
 
       # Upload docfx output site
       - name: Upload docfx build results to artifacts
-        id: step_upload_artifact
         uses: actions/upload-artifact@v4
         with:
           name: wwwroot
@@ -75,7 +72,7 @@ jobs:
         id: download
         uses: actions/download-artifact@v4
         with:
-          name: ${{needs.build.outputs.artifact_id}}
+          name: wwwroot
           path: ${{runner.temp}}/wwwroot
 
       # Edit `404.html` file
@@ -113,4 +110,4 @@ jobs:
     if: ${{ failure() }}
     steps:
       - run: |
-          echo "Failed to build and deploy"
+          echo "Failed to build and deploy" # TODO: Add debug information
