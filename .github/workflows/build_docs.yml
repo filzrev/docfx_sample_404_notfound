@@ -79,7 +79,7 @@ jobs:
       - name: Edit 404.html
         run: |
           $repoName = '${{github.event.repository.name}}'
-          $path = ${{steps.download.outputs.download-path}}/404.html'
+          $path = '${{steps.download.outputs.download-path}}/404.html'
           $html = Get-Content -Path $path -Raw
           $html = $html.Replace('<head>', ('<head>{0}<base href="/{1}/" />' -f "`n    ", $repoName))
 
