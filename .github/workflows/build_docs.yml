@@ -82,7 +82,7 @@ jobs:
           $filePath = '${{steps.download.outputs.download-path}}/404.html'
           Get-ChildItem
           dotnet tool install dotnet-script -g
-          dotnet script .github/scripts/Rewrite404Page.csx $repoName $filePath
+          dotnet script ".github/scripts/Rewrite404Page.csx" $repoName $filePath
           
       # Upload content to GitHub Pages
       - name: Upload artifact
@@ -103,5 +103,5 @@ jobs:
     steps:
       - run: |
           echo "Failed to build and deploy" # TODO: Add debug information
-          dir >> $env:GITHUB_STEP_SUMMARY
+          echo "Test" >> $env:GITHUB_STEP_SUMMARY
 
