@@ -80,7 +80,7 @@ jobs:
         run: |
           $repoName = '${{github.event.repository.name}}'
           $filePath = '${{steps.download.outputs.download-path}}/404.html'
-          dir
+          Get-ChildItem
           dotnet tool install dotnet-script -g
           dotnet script .github/scripts/Rewrite404Page.csx $repoName $filePath
           
@@ -103,4 +103,5 @@ jobs:
     steps:
       - run: |
           echo "Failed to build and deploy" # TODO: Add debug information
-          dir
+          dir >> $GITHUB_STEP_SUMMARY
+
