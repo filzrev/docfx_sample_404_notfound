@@ -1,17 +1,20 @@
+#r "nuget: HtmlAgilityPack, 1.11.61"
+
+#nullable enable
+
+using HtmlAgilityPack;
 
 string repoName = Args[0];
 string htmlPath = Args[1];
 
-Console.WriteLine($"repoName: {repoName}")
-Console.WriteLine($"htmlPath: {htmlPath}")
-Console.WriteLine($"CommandLine: {Environment.CommandLine}")
-Console.WriteLine($"CurrentDirectory: {Environment.CurrentDirectory}")
+Console.WriteLine($"repoName: {repoName}");
+Console.WriteLine($"htmlPath: {htmlPath}");
+Console.WriteLine($"CommandLine: {Environment.CommandLine}");
+Console.WriteLine($"CurrentDirectory: {Environment.CurrentDirectory}");
 
 var baseUri = new Uri(repoName, UriKind.RelativeOrAbsolute);
 var document = new HtmlDocument() { BackwardCompatibility = false };
-
-using var stream = File.OpenRead(htmlPath);
-document.Load(stream, Encoding.UTF8);
+document.Load(htmlPath);
 	
 // Rewrite urls
 RewriteTagAttributeUrls("script", "src");  // Rewrite `src` attribute of `<script>` tag.
