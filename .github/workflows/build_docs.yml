@@ -80,7 +80,7 @@ jobs:
         run: |
           $repoName = '${{github.event.repository.name}}'
           $filePath = '${{steps.download.outputs.download-path}}/404.html'
-
+          Get-Location
           dotnet tool install dotnet-script -g
           dotnet script ./.github/scripts/Rewrite404Page.csx $repoName $filePath
           
