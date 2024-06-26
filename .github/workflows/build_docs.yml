@@ -79,18 +79,10 @@ jobs:
       - name: Edit 404.html
         run: |
           $repoName = '${{github.event.repository.name}}'
-          $path = '${{steps.download.outputs.download-path}}/404.html'
-          $html = Get-Content -Path $path -Raw
-          $html = $html.Replace('<head>', ('<head>{0}<base href="/{1}/" />' -f "`n    ", $repoName))
+          $filePath = '${{steps.download.outputs.download-path}}/404.html'
 
-          $html = $html.Replace('</head>', @'
-                <script>
-                  document.querySelector('meta[name="docfx:navrel"]').setAttribute("content", document.baseURI +"toc.html");
-                  document.querySelector('meta[name="docfx:tocrel"]').setAttribute("content", document.baseURI +"toc.html");
-                </script>
-            </head>
-          '@)
-          Set-Content -Path $path -Value $html
+          dotnet tool install dotnet-script -g
+          dotnet script ../scripts/Rewrite404Page.csx $repoName $filePath
           
       # Upload content to GitHub Pages
       - name: Upload artifact
