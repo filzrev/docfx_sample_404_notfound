@@ -24,6 +24,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
+        shell: pwsh
         working-directory: ./docs
     steps:
       # Checkout
