@@ -78,6 +78,9 @@ jobs:
       # Edit `404.html` file
       - name: Edit 404.html
         run: |
+          [string] $dirResult = Get-ChildItem
+          Write-Host $dirResult
+          $dirResult | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Append
           $repoName = '${{github.event.repository.name}}'
           $filePath = '${{steps.download.outputs.download-path}}/404.html'
           Get-ChildItem
@@ -103,9 +106,5 @@ jobs:
     steps:
       - run: |
           echo "Failed to build and deploy" # TODO: Add debug information
-          "### Hello world! :rocket:" | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Append
-          [string] $dirResult = Get-ChildItem
-          Write-Host $dirResult
-          $dirResult | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Append
           "### Hello world! :rocket:" | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Append
 
