@@ -103,5 +103,6 @@ jobs:
     steps:
       - run: |
           echo "Failed to build and deploy" # TODO: Add debug information
-          dir | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Append
+          $dirResult = dir
+          Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Append -Value $dirResult
 
