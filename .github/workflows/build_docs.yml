@@ -29,18 +29,22 @@ jobs:
       # Checkout
       - name: Checkout
         uses: actions/checkout@v4
+        
       # Install docfx as .NET global tools
       - name: Install docfx
         run: |
           dotnet tool install docfx -g
+          
       # Run `docfx metadata` command
       - name: Generate metadata
         run: |
           docfx metadata
+          
       # Run `docfx build` command
       - name: Build document
         run: |
           docfx build
+          
       # Run `docfx pdf` command
       - name: Build PDF files
         run: |
@@ -75,15 +79,13 @@ jobs:
           name: wwwroot
           path: ${{runner.temp}}/wwwroot
 
+      # Checkout scripts directory contents
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            .github/scripts
 
-      # Output debug logs
-      - name: Output debug logs 
-        run: |
-          [string] $dirResult = Get-Location
-          $dirResult | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Append
-          $dirResult = Get-ChildItem
-          $dirResult | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Append
-          
       # Edit `404.html` file
       - name: Edit 404.html
         run: |
