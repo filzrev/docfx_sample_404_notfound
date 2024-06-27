@@ -89,6 +89,8 @@ jobs:
       # Edit `404.html` file
       - name: Edit 404.html
         run: |
+          Get-Location | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Append
+          [Environment]::CurrentDirectory | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Append
           $repoName = '${{github.event.repository.name}}'
           $filePath = '${{steps.download.outputs.download-path}}/404.html'
           dotnet tool install dotnet-script -g
