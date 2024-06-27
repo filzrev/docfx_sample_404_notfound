@@ -24,6 +24,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
+        shell: pwsh # It required to set explicitly when using `working-directory
         working-directory: ./docs
     steps:
       # Checkout
