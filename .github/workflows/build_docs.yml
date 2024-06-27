@@ -104,7 +104,7 @@ jobs:
       - run: |
           echo "Failed to build and deploy" # TODO: Add debug information
           "### Hello world! :rocket:" | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Append
-          $dirResult = dir
+          [string] $dirResult = dir 
           $dirResult | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Append
           "### Hello world! :rocket:" | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Append
 
